@@ -1,5 +1,7 @@
 package app.entity;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class Carro {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String nome;
 	private int ano;
 	
@@ -31,11 +33,11 @@ public class Carro {
 	@JoinColumn(name="marca_id")
 	private Marca marca;
 
-	// @ManyToMany
-	// @JoinTable(
-	// 		name="carro_proprietario",
-	// 		joinColumns = @JoinColumn(name="proprietario_id")
-	// 		)
-	// private List<Proprietario> proprietarios;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+		name="carro_proprietario",
+		joinColumns = @JoinColumn(name="proprietario_id")
+	)
+	private List<Proprietario> proprietarios;
 	
 }
